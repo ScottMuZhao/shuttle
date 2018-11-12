@@ -15,6 +15,11 @@ const ShuttleSchema = new Schema({
             type: String
         }],
         required: true
+    },
+    status: {
+        type: Number,
+        enum: [0, 1, 2],
+        default: 0
     }
 }, {
     timestamps: true

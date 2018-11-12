@@ -53,4 +53,4 @@ exports.toggleWait = async (ctx, next) => {
     const {userId, status} = ctx.body;
     await UserService.changeStatus(userId, status);
     ctx.status =204;
-}
+};

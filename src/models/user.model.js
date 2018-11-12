@@ -23,8 +23,8 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    Shuttle: {
-        type: String,
+    shuttle: {
+        type: Schema.Types.ObjectId,
         required: true
     },
     status: {
