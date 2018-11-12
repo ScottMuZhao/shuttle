@@ -1,13 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const AstronautsSchema = new Schema({
+const UserSchema = new Schema({
     username: {
         type: String,
-        required: true,
         unique: true
     },
-    wechatId: {
+    openid: {
         type: String,
         required: true,
         unique: true
@@ -17,20 +16,24 @@ const AstronautsSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['crew', 'captain'],
-        required: true,
-        default: 'crew'
+        enum: ['passenger', 'captain'],
+        default: 'passenger'
     },
     tribe: {
         type: String,
         required: true
     },
-    spacecraft: {
+    Shuttle: {
         type: String,
         required: true
+    },
+    status: {
+        type: Number,
+        default: 0,
+        enum: [0, 1]
     }
 }, {
     timestamps: true
 });
 
-module.exports = mongooose.model('astronaut', AstronautsSchema);
+module.exports = mongooose.model('user', UserSchema);

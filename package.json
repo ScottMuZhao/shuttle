@@ -12,6 +12,7 @@
   "author": "muzh_ao@163.com",
   "license": "ISC",
   "dependencies": {
+    "gb2260": "^0.6.0",
     "koa": "^2.5.3",
     "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.0",
