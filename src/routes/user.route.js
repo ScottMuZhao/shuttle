@@ -7,7 +7,7 @@ router.post('/login', userCtrl.login);
 
 router.get('/me', userCtrl.getUserInfo);
 
-router.put('/me', userCtrl.updateUserInfo);
+router.put('/me/:userId', userCtrl.updateUserInfo);
 
 router.patch('/me/status', userCtrl.toggleWait);
 

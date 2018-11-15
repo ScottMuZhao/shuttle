@@ -12,6 +12,7 @@
   "author": "muzh_ao@163.com",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "gb2260": "^0.6.0",
     "koa": "^2.5.3",
     "koa-bodyparser": "^4.2.1",

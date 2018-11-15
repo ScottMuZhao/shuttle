@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const config = require('../config');
-const UserService = require('../serviecs/user.service');
+const UserService = require('../services/user.service');
 
 
 const code2SessionUrl = 'https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code';
@@ -13,8 +13,10 @@ exports.login = async (ctx, next) => {
         url: `https://api.weixin.qq.com/sns/jscode2session?appid=${config.appid}&secret=${config.secret}&js_code=${code}&grant_type=authorization_code`
     }
     const response = await axios(requestOption);
+    console.log(response.data);
+    console.log(response.status);
     let openid;
-    if (response.data.errcode !== 0) {
+    if (response.data.errcode) {
         ctx.body = {
             msg: '登录失败，请重新登录'
         }
@@ -22,6 +24,7 @@ exports.login = async (ctx, next) => {
     } else {
         openid = response.data.openid;
         let user = await UserService.findByOpenid(openid);
+        console.log(user);
         if (!user) {
             user = await UserService.create({openid});
         }
@@ -43,8 +46,10 @@ exports.getUserInfo = async (ctx, next) => {
 };
 
 exports.updateUserInfo = async (ctx, next) => {
-    const userId = ctx.params;
-    const userInfo = ctx.body;
+    const {userId} = ctx.params;
+    const userInfo = ctx.request.body;
+    console.log(userId);
+    console.log(userInfo);
     await UserService.update(userId, userInfo);
     ctx.status = 204;
 };

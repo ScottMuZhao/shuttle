@@ -20,20 +20,21 @@ const UserSchema = new Schema({
         default: 'passenger'
     },
     tribe: {
-        type: String,
-        required: true
+        type: String
     },
     shuttle: {
-        type: Schema.Types.ObjectId,
-        required: true
+        type: Schema.Types.ObjectId
     },
     status: {
         type: Number,
         default: 0,
         enum: [0, 1]
+    },
+    extra: {
+        type: Object
     }
 }, {
     timestamps: true
 });
 
-module.exports = mongooose.model('user', UserSchema);
+module.exports = mongoose.model('user', UserSchema);

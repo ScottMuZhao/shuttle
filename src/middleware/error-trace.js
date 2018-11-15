@@ -3,6 +3,7 @@ const errorTrace = () => {
         try {
             await next();
         } catch (err) {
+            console.log(err);
             ctx.body = {
                 msg: err.msg || '',
                 debug: err.message

@@ -1,22 +1,24 @@
 const User = require('../models/user.model');
 
 class UserService {
-    async create (user) {
+    static async create (user) {
         return await User.create(user);
     }
-    async get (userId) {
+    static async get (userId) {
         return await User.findById(userId).populate('shuttle');;
     }
-    async findByOpenid (openid) {
-        return await User.find(openid).populate('shuttle');
+    static async findByOpenid (openid) {
+        return await User.findOne({openid}).populate('shuttle');
     }
-    async update (userId, user) {
+    static async update (userId, user) {
         return await User.update({_id: userId}, {$set: user});
     }
-    async changeStatus (userId, status) {
+    static async changeStatus (userId, status) {
         return await User.update({_id: userId}, {status});
     }
-    async filter (query) {
+    static async filter (query) {
         return await User.find(query);
     }
 }
+
+module.exports = UserService;
