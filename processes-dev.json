@@ -1,0 +1,15 @@
+[
+    {
+      "name": "shuttle",
+      "script": "src/app.js",
+      "interpreter":"node@8.9.1",
+      "exec_mode": "fork",
+      "instances": 1,
+      "log_date_format": "YYYY-MM-DD HH:mm Z",
+      "merge_logs": true,
+      "watch": false,
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  ]
