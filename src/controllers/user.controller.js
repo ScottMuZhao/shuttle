@@ -2,6 +2,7 @@ const axios = require('axios');
 
 const config = require('../config');
 const UserService = require('../services/user.service');
+const ShuttleService = require('../services/shuttle.service');
 
 
 const code2SessionUrl = 'https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code';
@@ -56,6 +57,15 @@ exports.updateUserInfo = async (ctx, next) => {
 
 exports.toggleWait = async (ctx, next) => {
     const {userId, status} = ctx.body;
-    await UserService.changeStatus(userId, status);
-    ctx.status =204;
+    const user = UserService.get(userId);
+    const shuttle = ShuttleService.get(user.shuttle);
+    if (shuttle.status === 1) {
+        ctx.body = {
+            msg: '已发车'
+        }
+        ctx.status = 200;
+    } else {
+        await UserService.changeStatus(userId, status);
+        ctx.status =204;
+    }
 };
