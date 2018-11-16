@@ -5,9 +5,9 @@ const shuttleCtrl = require('../controllers/shuttle.controller');
 
 router.get('/shuttles', shuttleCtrl.getAllShuttles);
 
-router.get('/shuttle/:shuttleId', shuttleCtrl.getShuttle);
+router.get('/shuttles/:shuttleId', shuttleCtrl.getShuttle);
 
-router.get('/shuttle/:shuttleId/users', shuttleCtrl.filterWaitUsersByShuttle);
+router.get('/shuttles/:shuttleId/users', shuttleCtrl.filterWaitUsersByShuttle);
 
 router.patch('/shuttles/:shuttleId/status', shuttleCtrl.changeStatus)
 

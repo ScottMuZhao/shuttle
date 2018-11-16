@@ -10,6 +10,9 @@ class ShuttleService {
     static async changeStatus (shuttleId, status) {
         return await Shuttle.update({_id: shuttleId}, {status});
     }
+    static async resetStatus (shuttleId) {
+        await Shuttle.update({_id: shuttleId}, {status: 0});
+    }
 }
 
 module.exports = ShuttleService;

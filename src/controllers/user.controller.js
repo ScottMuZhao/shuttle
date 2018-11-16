@@ -1,8 +1,10 @@
 const axios = require('axios');
+const moment = require('moment');
 
 const config = require('../config');
 const UserService = require('../services/user.service');
 const ShuttleService = require('../services/shuttle.service');
+const RecordService = require('../services/record.service');
 
 
 const code2SessionUrl = 'https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code';
@@ -59,12 +61,23 @@ exports.toggleWait = async (ctx, next) => {
     const {userId, status} = ctx.body;
     const user = UserService.get(userId);
     const shuttle = ShuttleService.get(user.shuttle);
-    if (shuttle.status === 1) {
+    if (status === 0 && (shuttle.status === 0 || shuttle.status === 2)) {
         ctx.body = {
-            msg: '已发车'
+            msg: '司机未到达或已发车'
         }
         ctx.status = 200;
     } else {
+        if (status === 1) {
+            const current = Date.now();
+            const seconds = current.getHours()*60*60 + current.getMinutes()*60 + current.getSeconds();
+            let timeArr = shuttle.time.split(':'); // 21:30:30
+            const leaveSeconds = timeArr[0]*60*60 + timeArr[1]*60 + Number(timeArr[2]);
+            const lateTime = seconds - leaveSeconds;
+            await RecordService.create({
+                user: user._id,
+                time: lateTime
+            });
+        }
         await UserService.changeStatus(userId, status);
         ctx.status =204;
     }

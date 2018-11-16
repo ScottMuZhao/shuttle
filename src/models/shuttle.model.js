@@ -10,7 +10,7 @@ const ShuttleSchema = new Schema({
     },
     status: {
         type: Number,
-        enum: [0, 1, 2],
+        enum: [0, 1, 2], //司机未到达，已到达，已出发
         default: 0
     },
     time: {

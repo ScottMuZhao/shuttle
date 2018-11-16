@@ -11,6 +11,7 @@ const connect = require('./config/db');
 
 const server = async () => {
     await connect();
+    require('./config/autoTask')();
     app
     .use(logger())
     .use(bodyParser())

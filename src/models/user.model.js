@@ -26,8 +26,8 @@ const UserSchema = new Schema({
     },
     status: {
         type: Number,
-        default: 0,
-        enum: [0, 1]
+        default: 1,
+        enum: [0, 1] //等一下，已上车
     },
     extra: {
         type: Object
