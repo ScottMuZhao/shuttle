@@ -14,7 +14,7 @@ class UserService {
         return await User.update({_id: userId}, {$set: user});
     }
     static async changeStatus (userId, status) {
-        return await User.update({_id: userId}, {status});
+        return await User.updateOne({_id: userId}, {$set: {status: status}});
     }
     static async filter (query) {
         return await User.find(query);

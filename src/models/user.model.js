@@ -22,7 +22,8 @@ const UserSchema = new Schema({
         type: String
     },
     shuttle: {
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: 'shuttle'
     },
     status: {
         type: Number,

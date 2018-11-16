@@ -9,15 +9,15 @@ exports.getAllShuttles = async (ctx, next) => {
 
 exports.filterWaitUsersByShuttle = async (ctx, next) => {
     const query = {
-        Shuttle: ctx.params.shuttleId,
-        status: 1
+        shuttle: ctx.params.shuttleId,
+        status: 0
     };
     ctx.body = await UserService.filter(query);
     ctx.status = 200;
 };
 
 exports.changeStatus = async (ctx, next) => {
-    const status = ctx.body.status;
+    const status = ctx.request.body.status;
     const shuttleId = ctx.params.shuttleId;
     const askForWaitUsers = await UserService.filter({shuttle: shuttleId, status: 0});
     if (status === 1 && askForWaitUsers.length > 0) {

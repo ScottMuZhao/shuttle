@@ -58,9 +58,12 @@ exports.updateUserInfo = async (ctx, next) => {
 };
 
 exports.toggleWait = async (ctx, next) => {
-    const {userId, status} = ctx.body;
-    const user = UserService.get(userId);
-    const shuttle = ShuttleService.get(user.shuttle);
+    const {userId, status} = ctx.request.body;
+    console.log(status);
+    console.log(typeof status);
+    const user = await UserService.get(userId);
+    console.log(user);
+    const shuttle = user.shuttle;
     if (status === 0 && (shuttle.status === 0 || shuttle.status === 2)) {
         ctx.body = {
             msg: '司机未到达或已发车'
@@ -68,15 +71,23 @@ exports.toggleWait = async (ctx, next) => {
         ctx.status = 200;
     } else {
         if (status === 1) {
-            const current = Date.now();
-            const seconds = current.getHours()*60*60 + current.getMinutes()*60 + current.getSeconds();
+            const current = moment();
+            const startOfTheDay = moment().startOf('day');
+            const seconds = parseInt(current.diff(startOfTheDay)/1000);
+            console.log(seconds);
+            
             let timeArr = shuttle.time.split(':'); // 21:30:30
             const leaveSeconds = timeArr[0]*60*60 + timeArr[1]*60 + Number(timeArr[2]);
+            console.log(leaveSeconds);
             const lateTime = seconds - leaveSeconds;
-            await RecordService.create({
-                user: user._id,
-                time: lateTime
-            });
+            console.log(lateTime);
+            if (lateTime > 0) {
+                console.log(111111);
+                await RecordService.create({
+                    user: user._id,
+                    time: lateTime
+                });
+            }
         }
         await UserService.changeStatus(userId, status);
         ctx.status =204;
