@@ -17,7 +17,7 @@ module.exports = () => {
         if (diff < GAP) {
             console.log('重置');
             Shuttle.update({}, {status: 0}, {multi: true});
-            User.update({}, {status: 1}, {multi: true});
+            User.update({}, {status: 2}, {multi: true});
         }
     }, INTERVAL_TIME);
 }
