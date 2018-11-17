@@ -64,13 +64,13 @@ exports.toggleWait = async (ctx, next) => {
     const user = await UserService.get(userId);
     console.log(user);
     const shuttle = user.shuttle;
-    if (status === 0 && (shuttle.status === 0 || shuttle.status === 2)) {
+    if (status === 1 && (shuttle.status === 0 || shuttle.status === 2)) {
         ctx.body = {
             msg: '司机未到达或已发车'
         }
         ctx.status = 200;
     } else {
-        if (status === 1) {
+        if (status === 2) {
             const current = moment();
             const startOfTheDay = moment().startOf('day');
             const seconds = parseInt(current.diff(startOfTheDay)/1000);

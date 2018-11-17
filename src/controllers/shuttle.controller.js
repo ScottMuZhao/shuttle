@@ -10,7 +10,7 @@ exports.getAllShuttles = async (ctx, next) => {
 exports.filterWaitUsersByShuttle = async (ctx, next) => {
     const query = {
         shuttle: ctx.params.shuttleId,
-        status: 0
+        status: 1
     };
     ctx.body = await UserService.filter(query);
     ctx.status = 200;
@@ -19,7 +19,7 @@ exports.filterWaitUsersByShuttle = async (ctx, next) => {
 exports.changeStatus = async (ctx, next) => {
     const status = ctx.request.body.status;
     const shuttleId = ctx.params.shuttleId;
-    const askForWaitUsers = await UserService.filter({shuttle: shuttleId, status: 0});
+    const askForWaitUsers = await UserService.filter({shuttle: shuttleId, status: 1});
     if (status === 1 && askForWaitUsers.length > 0) {
         ctx.body = {
             msg: '有光年未上车，请耐心等候'
