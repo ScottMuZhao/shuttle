@@ -58,11 +58,10 @@ exports.updateUserInfo = async (ctx, next) => {
 };
 
 exports.toggleWait = async (ctx, next) => {
-    const {userId, status} = ctx.request.body;
-    console.log(status);
-    console.log(typeof status);
+    console.log(123);
+    const userId = ctx.params.userId;
+    const {status} = ctx.request.body;
     const user = await UserService.get(userId);
-    console.log(user);
     const shuttle = user.shuttle;
     if (status === 1 && (shuttle.status === 0 || shuttle.status === 2)) {
         ctx.body = {

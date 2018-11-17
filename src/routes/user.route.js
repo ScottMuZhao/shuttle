@@ -9,6 +9,6 @@ router.get('/me', userCtrl.getUserInfo);
 
 router.put('/me/:userId', userCtrl.updateUserInfo);
 
-router.put('/me/status', userCtrl.toggleWait);
+router.put('/me/:userId/status', userCtrl.toggleWait);
 
 module.exports = router;

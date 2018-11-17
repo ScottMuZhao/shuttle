@@ -20,7 +20,7 @@ exports.changeStatus = async (ctx, next) => {
     const status = ctx.request.body.status;
     const shuttleId = ctx.params.shuttleId;
     const askForWaitUsers = await UserService.filter({shuttle: shuttleId, status: 1});
-    if (status === 1 && askForWaitUsers.length > 0) {
+    if (status === 2 && askForWaitUsers.length > 0) {
         ctx.body = {
             msg: '有光年未上车，请耐心等候'
         }
