@@ -66,7 +66,7 @@ exports.toggleWait = async (ctx, next) => {
     if (status === 1 && (shuttle.status === 0 || shuttle.status === 2)) {
         ctx.body = {
             msg: '司机未到达或已发车'
-        }
+        };
         ctx.status = 200;
     } else {
         if (status === 2) {
@@ -74,7 +74,7 @@ exports.toggleWait = async (ctx, next) => {
             const startOfTheDay = moment().startOf('day');
             const seconds = parseInt(current.diff(startOfTheDay)/1000);
             console.log(seconds);
-            
+
             let timeArr = shuttle.time.split(':'); // 21:30:30
             const leaveSeconds = timeArr[0]*60*60 + timeArr[1]*60 + Number(timeArr[2]);
             console.log(leaveSeconds);

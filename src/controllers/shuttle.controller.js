@@ -10,7 +10,8 @@ exports.getAllShuttles = async (ctx, next) => {
 exports.filterWaitUsersByShuttle = async (ctx, next) => {
     const query = {
         shuttle: ctx.params.shuttleId,
-        status: 1
+        status: 1,
+        role: 'passenger'
     };
     ctx.body = await UserService.filter(query);
     ctx.status = 200;
